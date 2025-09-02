@@ -2,7 +2,7 @@
 	"name": "tr_electric_vehicle_data_load",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
