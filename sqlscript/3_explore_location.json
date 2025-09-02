@@ -1,0 +1,21 @@
+{
+	"name": "3_explore_location",
+	"properties": {
+		"description": "Explorar un archivo CSV que contiene '\\' como separador en las columnas",
+		"folder": {
+			"name": "electric_vechicle/explorer"
+		},
+		"content": {
+			"query": "use electric_vehicle_explorer;\n\nSELECT * \nFROM\n    OPENROWSET(\n        BULK 'location.csv',\n        DATA_SOURCE = 'electric_vehicle_data_bronze',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE,\n        FIELDTERMINATOR = ';',\n        FIELDQUOTE = '\\'\n    ) as location;\n        ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "electric_vehicle_explorer",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"name": "4_explore_propietary",
+	"properties": {
+		"description": "Explorar un archivo .tsv",
+		"folder": {
+			"name": "electric_vechicle/explorer"
+		},
+		"content": {
+			"query": "use electric_vehicle_explorer;\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'propietary.tsv',\n        DATA_SOURCE = 'electric_vehicle_data_bronze',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        FIELDTERMINATOR = '\\t',\n        HEADER_ROW = TRUE\n    ) AS propietary;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "electric_vehicle_explorer",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

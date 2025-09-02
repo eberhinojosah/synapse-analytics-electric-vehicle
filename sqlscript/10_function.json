@@ -1,0 +1,20 @@
+{
+	"name": "10_function",
+	"properties": {
+		"folder": {
+			"name": "electric_vechicle/explorer"
+		},
+		"content": {
+			"query": "--Intro a las Funciones\nUSE electric_vehicle_explorer\n\nSELECT\n    MIN(electricRange) as min_electricRange,\n    MAX(electricRange) as max_electricRange,\n    AVG(electricRange) as avg_electricRange,\n    COUNT(1) as total_number_of_electric_range,\n    COUNT(electricRange) as not_null_total_number_of_electric_range\nFROM\n    OPENROWSET(\n        BULK 'abfss://electric-vehicle-data@synapsecourseespdl.dfs.core.windows.net/bronze/vehicle.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    )   WITH (\n        \n                vehicleId           INT,\n                vin                 VARCHAR(10),\n                modelYear           SMALLINT,\n                make                VARCHAR(25),\n                model               VARCHAR(25),\n                electricRange       SMALLINT,\n                baseMSRP            INT,\n                vehicheTypeId       SMALLINT,\n                cafvEligibilityId   SMALLINT,\n                vehicleLocation     VARCHAR(30)\n    )\n     AS [result]\n     WHERE electricrange > 20 ;\n\n\n--Funciones de Agregacion\nSELECT\n   make, \n   count(make) as total_count\nFROM\n    OPENROWSET(\n        BULK 'abfss://electric-vehicle-data@synapsecourseespdl.dfs.core.windows.net/bronze/vehicle.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    )   WITH (\n        \n                vehicleId           INT,\n                vin                 VARCHAR(10),\n                modelYear           SMALLINT,\n                make                VARCHAR(25),\n                model               VARCHAR(25),\n                electricRange       SMALLINT,\n                baseMSRP            INT,\n                vehicheTypeId       SMALLINT,\n                cafvEligibilityId   SMALLINT,\n                vehicleLocation     VARCHAR(30)\n    )\n     AS [result]\n     GROUP by make\n     HAVING COUNT(make) > 1000;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "electric_vehicle_explorer",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

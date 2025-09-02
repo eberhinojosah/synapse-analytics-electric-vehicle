@@ -1,0 +1,20 @@
+{
+	"name": "9_explore_vehicle_registration_delta",
+	"properties": {
+		"folder": {
+			"name": "electric_vechicle/explorer"
+		},
+		"content": {
+			"query": "USE electric_vehicle_explorer\n\nSELECT TOP 100 *\nFROM OPENROWSET (\n    BULK 'vehicle_registration_delta/', --se debe consultar a esta altura ya que ahi esta la carpeta 'delta_log'\n    DATA_SOURCE = 'electric_vehicle_data_bronze',\n    FORMAT = 'DELTA'\n) AS vehicle_registration;\n\n--Revisar el tipo de dato que le asigna synapse\nEXEC sp_describe_first_result_set N'\nSELECT TOP 100 *\nFROM OPENROWSET (\n    BULK ''vehicle_registration_delta/'', \n    DATA_SOURCE = ''electric_vehicle_data_bronze'',\n    FORMAT = ''DELTA''\n) AS vehicle_registration;'\n\n\n--Asignar un tipo de dato especifico y seleccionar solo las columnas necesarias\nSELECT TOP 100 *\nFROM OPENROWSET (\n    BULK 'vehicle_registration_delta/', \n    DATA_SOURCE = 'electric_vehicle_data_bronze',\n    FORMAT = 'DELTA'\n)WITH(\n    propietaryId        TINYINT,\n    dolVehicleId        INT,\n    year                VARCHAR(4),\n    month               VARCHAR(2)\n) AS vehicle_registration;\n\n\nSELECT COUNT(DISTINCT locationId)\nFROM OPENROWSET (\n    BULK 'vehicle_registration_delta/', \n    DATA_SOURCE = 'electric_vehicle_data_bronze',\n    FORMAT = 'DELTA'\n) AS vehicle_registration\nWHERE year= '2024' AND month = '01';",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "electric_vehicle_explorer",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
