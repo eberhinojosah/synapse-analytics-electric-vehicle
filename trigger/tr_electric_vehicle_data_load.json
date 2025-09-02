@@ -16,8 +16,8 @@
 			"recurrence": {
 				"frequency": "Day",
 				"interval": 1,
-				"startTime": "2025-09-02T19:21:00Z",
-				"timeZone": "UTC"
+				"startTime": "2025-09-03T14:21:00",
+				"timeZone": "Central Standard Time (Mexico)"
 			}
 		}
 	}
