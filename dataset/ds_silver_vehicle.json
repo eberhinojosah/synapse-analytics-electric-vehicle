@@ -5,6 +5,9 @@
 			"referenceName": "ls_asynapsealds",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "demo"
+		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
